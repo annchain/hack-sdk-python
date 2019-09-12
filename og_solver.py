@@ -65,17 +65,7 @@ class OGSolver:
 
         return r.json()
 
-    def query_pool(self):
-        """
-        get all the txs that currently in the pool
-        :return:
-        """
-
-        # TODO
-        #  check the input
-        pass
-
-    def query_transaction(self, tx_hash):
+    def query_transaction(self, tx_hash: str):
         params = {
             "hash": tx_hash
         }
@@ -84,8 +74,46 @@ class OGSolver:
 
         return r.json()
 
+    def query_sequencer_by_hash(self, seq_hash: str):
+        params = {
+            "hash": seq_hash
+        }
+        url = self.url + "/sequencer"
+        r = requests.get(url=url, params=params)
+        return r.json()
+
+    def query_sequencer_by_height(self, height: int):
+        params = {
+            "height": height
+        }
+        url = self.url + "/sequencer"
+        r = requests.get(url=url, params=params)
+        return r.json()
+
+    def query_txs_by_address(self, address: str):
+        params = {
+            "address": address
+        }
+        url = self.url + "/transactions"
+        r = requests.get(url=url, params=params)
+        return r.json()
+
+    def query_txs_by_height(self, height: int):
+        params = {
+            "height": height
+        }
+        url = self.url + "/transactions"
+        r = requests.get(url=url, params=params)
+        return r.json()
+
     def query_all_tips_in_pool(self):
         url = self.url + "/query_pool_tips"
+        r = requests.get(url=url)
+
+        return r.json()
+
+    def query_all_txs_in_pool(self):
+        url = self.url + "/query_pool_txs"
         r = requests.get(url=url)
 
         return r.json()
