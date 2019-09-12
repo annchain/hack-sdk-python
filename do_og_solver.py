@@ -5,6 +5,7 @@ from og_solver import OGSolver
 url = "http://172.28.152.102:38000"
 private_key = "af1b6df8cc06d79902029c0e446c3dc2788893185759d2308b5bb10aa0614b7d"
 
+# Here is the sample code for all APIs
 
 def do_query_nonce():
     og = OGSolver(url)
