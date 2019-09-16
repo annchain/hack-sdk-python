@@ -106,6 +106,15 @@ class OGSolver:
         r = requests.get(url=url, params=params)
         return r.json()
 
+    def query_tx_num_by_height(self, height: int):
+        params = {
+            "height": height
+        }
+        url = self.url + "/query_tx_num"
+        r = requests.get(url=url, params=params)
+        print(r.text)
+        return r.json()
+
     def query_all_tips_in_pool(self):
         url = self.url + "/query_pool_tips"
         r = requests.get(url=url)

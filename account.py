@@ -1,5 +1,7 @@
 import coincurve
 
+from Crypto.Hash import keccak
+
 global_accounts = [
     {'privkey': 'af1b6df8cc06d79902029c0e446c3dc2788893185759d2308b5bb10aa0614b7d',
      'address': 'f1b4b3de579ff16888f3340f39c45f207f2cd84d'},
@@ -58,3 +60,8 @@ class Account:
 
         self.private_key = private_key
         self.public_key = public_key.format(compressed=False)
+
+        keccak_hash = keccak.new(digest_bits=256)
+        keccak_hash.update(self.public_key[1:])
+
+        self.address = keccak_hash.hexdigest()[-40:]

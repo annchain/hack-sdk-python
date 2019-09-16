@@ -5,6 +5,7 @@ from og_solver import OGSolver
 url = "http://172.28.152.102:38000"
 private_key = "af1b6df8cc06d79902029c0e446c3dc2788893185759d2308b5bb10aa0614b7d"
 
+
 # Here is the sample code for all APIs
 
 def do_query_nonce():
@@ -54,6 +55,12 @@ def do_query_txs_by_height():
     print(og.query_txs_by_height(height))
 
 
+def do_query_tx_num_by_height():
+    og = OGSolver(url)
+    height = 10
+    print(og.query_tx_num_by_height(height))
+
+
 def do_query_all_tips_in_pool():
     og = OGSolver(url)
     print(og.query_all_tips_in_pool())
@@ -73,12 +80,12 @@ def do_send_tx():
     my_address = global_accounts[0]['address']
     account = Account(global_accounts[0]['privkey'])
 
-    # get my next nonce to be used. Nonce can only be used once
+    # get my next nonce to be used. Nonce can only be used once.
     nonce_json = og.query_nonce(my_address)
     nonce = nonce_json['data']
     print('My nonce', nonce)
 
-    # get all txs in the pool so that I can pick up two.
+    # get all txs in the pool so that I can pick up one or two.
     poolTxs_json = og.query_all_tips_in_pool()['data']
     sequencer = poolTxs_json['sequencer']
     txs = poolTxs_json['transactions']
@@ -112,7 +119,15 @@ def do_send_fix_tx():
     print(resp)
 
 
+def do_generate_account():
+    priv = 'af1b6df8cc06d79902029c0e446c3dc2788893185759d2308b5bb10aa0614b7d'
+    account = Account(priv)
+    print(to_string(account.public_key))
+    print(account.address)
+
+
 if __name__ == '__main__':
+    do_generate_account()
     # do_query_nonce()
     # do_query_balance()
     # do_query_transaction()
@@ -120,6 +135,7 @@ if __name__ == '__main__':
     # do_query_sequencer_by_height()
     # do_query_txs_by_address()
     # do_query_txs_by_height()
+    # do_query_tx_num_by_height()
     # do_query_all_tips_in_pool()
-    do_query_all_txs_in_pool()
+    # do_query_all_txs_in_pool()
     # do_sendTx()
