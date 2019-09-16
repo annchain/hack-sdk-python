@@ -11,11 +11,12 @@ from account import Account
 
 class OGSolver:
 
-    def __init__(self, url):
+    def __init__(self, url, token):
         """
         :param url: hex string. e.g. 127.0.0.1:10003
         """
         self.url = url
+        self.token = token
 
     def send_tx(self, account, parents, nonce, sender, guarantee, pubkey, to=None, value=0):
         # TODO
@@ -35,10 +36,10 @@ class OGSolver:
             "pubkey": tx.pubkey.hex(),
         }
 
-        print(data)
+        # print(data)
         url = self.url + "/new_transaction"
-        r = requests.post(url, json=data)
-        print(r.text)
+        r = requests.post(url, json=data, headers={'cookie': 'token=' + self.token})
+        print("TEXT", r.text)
         return r.json()
 
     def query_nonce(self, address):
@@ -49,7 +50,7 @@ class OGSolver:
             "address": address
         }
         url = self.url + "/query_nonce"
-        r = requests.get(url=url, params=params)
+        r = requests.get(url=url, params=params, headers={'cookie': 'token=' + self.token})
 
         return r.json()
 
@@ -61,7 +62,7 @@ class OGSolver:
             "address": address
         }
         url = self.url + "/query_balance"
-        r = requests.get(url=url, params=params)
+        r = requests.get(url=url, params=params, headers={'cookie': 'token=' + self.token})
 
         return r.json()
 
@@ -70,7 +71,7 @@ class OGSolver:
             "hash": tx_hash
         }
         url = self.url + "/transaction"
-        r = requests.get(url=url, params=params)
+        r = requests.get(url=url, params=params, headers={'cookie': 'token=' + self.token})
 
         return r.json()
 
@@ -79,7 +80,7 @@ class OGSolver:
             "hash": seq_hash
         }
         url = self.url + "/sequencer"
-        r = requests.get(url=url, params=params)
+        r = requests.get(url=url, params=params, headers={'cookie': 'token=' + self.token})
         return r.json()
 
     def query_sequencer_by_height(self, height: int):
@@ -87,7 +88,7 @@ class OGSolver:
             "height": height
         }
         url = self.url + "/sequencer"
-        r = requests.get(url=url, params=params)
+        r = requests.get(url=url, params=params, headers={'cookie': 'token=' + self.token})
         return r.json()
 
     def query_txs_by_address(self, address: str):
@@ -95,7 +96,7 @@ class OGSolver:
             "address": address
         }
         url = self.url + "/transactions"
-        r = requests.get(url=url, params=params)
+        r = requests.get(url=url, params=params, headers={'cookie': 'token=' + self.token})
         return r.json()
 
     def query_txs_by_height(self, height: int):
@@ -103,7 +104,7 @@ class OGSolver:
             "height": height
         }
         url = self.url + "/transactions"
-        r = requests.get(url=url, params=params)
+        r = requests.get(url=url, params=params, headers={'cookie': 'token=' + self.token})
         return r.json()
 
     def query_tx_num_by_height(self, height: int):
@@ -111,18 +112,16 @@ class OGSolver:
             "height": height
         }
         url = self.url + "/query_tx_num"
-        r = requests.get(url=url, params=params)
-        print(r.text)
+        r = requests.get(url=url, params=params, headers={'cookie': 'token=' + self.token})
         return r.json()
 
     def query_all_tips_in_pool(self):
         url = self.url + "/query_pool_tips"
-        r = requests.get(url=url)
-
+        r = requests.get(url=url, headers={'cookie': 'token=' + self.token})
         return r.json()
 
     def query_all_txs_in_pool(self):
         url = self.url + "/query_pool_txs"
-        r = requests.get(url=url)
+        r = requests.get(url=url, headers={'cookie': 'token=' + self.token})
 
         return r.json()

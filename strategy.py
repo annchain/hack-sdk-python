@@ -3,6 +3,7 @@ import json
 from kafka import KafkaConsumer
 
 # modify according to the specific
+import committee
 from account import Account
 from og_solver import OGSolver
 
@@ -14,6 +15,10 @@ private_key = "af1b6df8cc06d79902029c0e446c3dc2788893185759d2308b5bb10aa0614b7d"
 
 og = OGSolver(API_URL)
 my_account = Account(private_key)
+
+KAFKA_TOPIC = 'hack-final-test'
+KAFKA_SERVER = ['47.100.222.11:30000']
+API_URL = "http://172.28.152.102:38000"
 
 
 def on_new_tx(tx):
@@ -32,6 +37,9 @@ def on_new_tx(tx):
 
 
 if __name__ == '__main__':
+    # load accounts
+
+
     # this is the callback for receiving a new tx:
     consumer = KafkaConsumer(KAFKA_TOPIC, bootstrap_servers=KAFKA_SERVER)
     for message in consumer:
