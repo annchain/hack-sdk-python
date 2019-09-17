@@ -21,6 +21,23 @@ class TX:
         self.value = value
         self.sig = b''
 
+    def dump(self):
+        return {
+            'parents': self.parents,
+            'nonce': self.nonce,
+            'sender': self.sender,
+            'guarantee': self.guarantee,
+            'pubkey': to_string(self.pubkey),
+            'to': self.to,
+            'value': self.value,
+
+        }
+
+    def intlength(self, value):
+        if value == 0:
+            return 1
+        return ((self.guarantee.bit_length() - 1) // 8) + 1
+
     def sig_target(self):
 
         parents_str = ""
@@ -36,12 +53,16 @@ class TX:
         msg_parents = parents_str
         msg_nonce = self.nonce.to_bytes(8, byteorder='big')
         msg_from = from_string(self.sender)
-        msg_to = from_string(self.to) if self.to is not None else from_string('0000000000000000000000000000000000000000')
-        msg_value = self.value.to_bytes((self.value.bit_length() // 8) + 1, byteorder='big')
-        msg_guarantee = self.guarantee.to_bytes((self.guarantee.bit_length() // 8) + 1, byteorder='big')
+        msg_to = from_string(self.to) if self.to is not None else from_string(
+            '0000000000000000000000000000000000000000')
+        msg_value = self.value.to_bytes(self.intlength(self.value), byteorder='big')
+        msg_guarantee = self.guarantee.to_bytes(self.intlength(self.guarantee), byteorder='big')
 
+        print(to_string(msg_value))
+        print(to_string(msg_guarantee))
         msg = msg_parents + msg_nonce + msg_from + msg_to + msg_value + msg_guarantee
-        # print(to_string(msg))
+
+        print(to_string(msg))
         return msg
 
     def sign(self, priv):

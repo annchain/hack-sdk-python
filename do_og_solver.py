@@ -1,7 +1,7 @@
 import random
 import time
 
-from account import Account, global_accounts
+from account import Account
 from hex import to_string
 from og_solver import OGSolver
 
@@ -146,11 +146,11 @@ if __name__ == '__main__':
     # do_query_tx_num_by_height()
     # do_query_all_tips_in_pool()
     # do_query_all_txs_in_pool()
-    i = 0
-    while True:
-        start = time.time()
-        do_send_tx(i % 10)
-        print('Cost', time.time() - start)
-        time.sleep(0.3)
-        i += 1
-    # do_send_fix_tx()
+    # i = 0
+    # while True:
+    #     start = time.time()
+    #     do_send_tx(i % 10)
+    #     print('Cost', time.time() - start)
+    #     time.sleep(0.3)
+    #     i += 1
+    do_send_fix_tx()

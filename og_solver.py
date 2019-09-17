@@ -1,7 +1,10 @@
+import json
+
 import numpy as np
 import account
 import requests
 
+from hex import to_string
 from tx import TX
 from account import Account
 
@@ -23,7 +26,9 @@ class OGSolver:
         #  check the inputs
 
         tx = TX(parents, nonce, sender, guarantee, pubkey, to, value)
+        print(tx.dump())
         tx.sig = tx.sign(account.private_key)
+        print("sig", to_string(tx.sig))
 
         data = {
             "parents": tx.parents,
