@@ -1,6 +1,5 @@
 import json
 import random
-import time
 
 from kafka import KafkaConsumer
 
@@ -32,7 +31,7 @@ accounts = []
 og_solver = OGSolver(API_URL, TOKEN)
 
 strategy = {
-    -1: [(0, 200)],
+    -1: [(0, 1)],
     0: [],
     1: [],
     2: [],

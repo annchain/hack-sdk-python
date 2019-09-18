@@ -1,12 +1,11 @@
-import random
-import time
+import json
 
 from account import Account
 from hex import to_string
 from og_solver import OGSolver
 
 url = "http://47.100.122.212:30020"
-url = "http://172.28.152.102:38000"
+url = "http://172.28.152.102:32020"
 private_key = "af1b6df8cc06d79902029c0e446c3dc2788893185759d2308b5bb10aa0614b7d"
 token = '98765467890'
 
@@ -56,13 +55,13 @@ def do_query_txs_by_address():
 
 def do_query_txs_by_height():
     og = OGSolver(url, token)
-    height = 2
+    height = 1980
     print(og.query_txs_by_height(height))
 
 
 def do_query_tx_num_by_height():
     og = OGSolver(url, token)
-    height = 10
+    height = 1980
     print(og.query_tx_num_by_height(height))
 
 
@@ -75,6 +74,8 @@ def do_query_all_tips_in_pool():
 def do_query_all_txs_in_pool():
     og = OGSolver(url, token)
     print(og.query_all_txs_in_pool())
+    print(json.dumps(og.query_all_txs_in_pool(), indent=4))
+
     # {'data': {'sequencer': {'type': 1, 'hash': '0xfd2325a06047329b7c53d303c4a0172768925eaf06560bf5a7bbea32a726a91e', 'parents': ['0xbafee5b1b3560d4ee9fdac01d483ba65ad1e519ad9ab010791185631a3eee3b7'], 'from': '0x7349f7a6f622378d5fb0e2c16b9d4a3e5237c187', 'nonce': 3174, 'treasure': '1000', 'height': 3174, 'weight': 0}, 'transactions': []}, 'err': ''}
 
 
@@ -106,8 +107,9 @@ def do_send_tx(i):
         parent_hashes.append(txs[0]['hash'])
 
     # send it.
-    resp = og.send_tx(account, parent_hashes, account.nonce + 1, account.address, guarantee, account.public_key, None, 0)
-    print('%d sent tx with nonce %d'% (i, account.nonce + 1))
+    resp = og.send_tx(account, parent_hashes, account.nonce + 1, account.address, guarantee, account.public_key, None,
+                      0)
+    print('%d sent tx with nonce %d' % (i, account.nonce + 1))
     account.nonce += 1
     print(resp)
 
@@ -145,7 +147,7 @@ if __name__ == '__main__':
     # do_query_txs_by_height()
     # do_query_tx_num_by_height()
     # do_query_all_tips_in_pool()
-    # do_query_all_txs_in_pool()
+    do_query_all_txs_in_pool()
     # i = 0
     # while True:
     #     start = time.time()
@@ -153,4 +155,4 @@ if __name__ == '__main__':
     #     print('Cost', time.time() - start)
     #     time.sleep(0.3)
     #     i += 1
-    do_send_fix_tx()
+    # do_send_fix_tx()

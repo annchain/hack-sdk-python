@@ -1,15 +1,7 @@
-import json
-
-import numpy as np
-import account
 import requests
 
 from hex import to_string
 from tx import TX
-from account import Account
-
-
-# import secp256k1
 
 
 class OGSolver:
@@ -109,14 +101,6 @@ class OGSolver:
             "height": height
         }
         url = self.url + "/transactions"
-        r = requests.get(url=url, params=params, headers={'cookie': 'token=' + self.token})
-        return r.json()
-
-    def query_tx_num_by_height(self, height: int):
-        params = {
-            "height": height
-        }
-        url = self.url + "/query_tx_num"
         r = requests.get(url=url, params=params, headers={'cookie': 'token=' + self.token})
         return r.json()
 

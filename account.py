@@ -15,6 +15,7 @@ known_addresses = [
     '8198e44922faf267211627687866e5612dbd4e87',
 ]
 
+
 class Account:
     def __init__(self, priv):
         """
