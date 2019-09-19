@@ -45,6 +45,12 @@ def do_query_sequencer_by_height():
     # {'data': {'type': 1, 'hash': '0x9f672f56f950654b374ebe2330af6be9b276f511884da83a8019c4c2f70ba998', 'parents': ['0xf973341546ba606b5329a3c532a857bb7f3cab8021f2eb803cd50013376e25af'], 'from': '0x7349f7a6f622378d5fb0e2c16b9d4a3e5237c187', 'nonce': 2, 'treasure': '1000', 'height': 2, 'weight': 2}, 'err': ''}
 
 
+def do_query_next_sequencer_info():
+    og = OGSolver(url, token)
+    print(og.query_next_sequencer_info())
+    # {'data': {'height': 11499, 'time_left': 6660}, 'err': ''}
+
+
 def do_query_txs_by_address():
     og = OGSolver(url, token)
     my_address = 'f1b4b3de579ff16888f3340f39c45f207f2cd84d'
@@ -146,7 +152,8 @@ if __name__ == '__main__':
     # do_query_txs_by_height()
     # do_query_tx_num_by_height()
     # do_query_all_tips_in_pool()
-    do_query_all_txs_in_pool()
+    # do_query_all_txs_in_pool()
+    do_query_next_sequencer_info()
     # i = 0
     # while True:
     #     start = time.time()

@@ -1,4 +1,5 @@
 import json
+import traceback
 
 from kafka import KafkaConsumer
 
@@ -34,4 +35,7 @@ if __name__ == '__main__':
     consumer = KafkaConsumer(KAFKA_TOPIC, bootstrap_servers=KAFKA_SERVER)
     for message in consumer:
         tx = json.loads(message.value.decode('utf-8'))
-        on_new_tx(tx)
+        try:
+            on_new_tx(tx)
+        except:
+            traceback.print_exc()

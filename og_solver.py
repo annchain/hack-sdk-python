@@ -87,6 +87,11 @@ class OGSolver:
         r = requests.get(url=url, params=params, headers={'cookie': 'token=' + self.token})
         return r.json()
 
+    def query_next_sequencer_info(self):
+        url = self.url + "/query_next_seq"
+        r = requests.get(url=url, headers={'cookie': 'token=' + self.token})
+        return r.json()
+
     def query_txs_by_address(self, address: str):
         params = {
             "address": address
