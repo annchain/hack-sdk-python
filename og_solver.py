@@ -1,6 +1,5 @@
 import requests
 
-from hex import to_string
 from tx import TX
 
 
@@ -18,9 +17,9 @@ class OGSolver:
         #  check the inputs
 
         tx = TX(parents, nonce, sender, guarantee, pubkey, to, value)
-        print(tx.dump())
+        print("sending", tx.dump())
         tx.sig = tx.sign(account.private_key)
-        print("sig", to_string(tx.sig))
+        # print("sig", to_string(tx.sig))
 
         data = {
             "parents": tx.parents,
@@ -36,7 +35,7 @@ class OGSolver:
         # print(data)
         url = self.url + "/new_transaction"
         r = requests.post(url, json=data, headers={'cookie': 'token=' + self.token})
-        print("TEXT", r.text)
+        # print("TEXT", r.text)
         return r.json()
 
     def query_nonce(self, address):

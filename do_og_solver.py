@@ -11,7 +11,6 @@ token = '98765467890'
 
 
 # Here is the sample code for all APIs
-
 def do_query_nonce():
     og = OGSolver(url, token)
     my_address = 'f1b4b3de579ff16888f3340f39c45f207f2cd84d'
@@ -79,12 +78,12 @@ def do_query_all_txs_in_pool():
     # {'data': {'sequencer': {'type': 1, 'hash': '0xfd2325a06047329b7c53d303c4a0172768925eaf06560bf5a7bbea32a726a91e', 'parents': ['0xbafee5b1b3560d4ee9fdac01d483ba65ad1e519ad9ab010791185631a3eee3b7'], 'from': '0x7349f7a6f622378d5fb0e2c16b9d4a3e5237c187', 'nonce': 3174, 'treasure': '1000', 'height': 3174, 'weight': 0}, 'transactions': []}, 'err': ''}
 
 
-def do_send_tx(i):
+def do_send_tx():
     og = OGSolver(url, token)
 
     # my account for signing messages
     # my_address = global_accounts[i]['address']
-    account = Account(global_accounts[i]['privkey'])
+    account = Account(private_key)
 
     # get my next nonce to be used. Nonce can only be used once.
     if account.nonce == 0:

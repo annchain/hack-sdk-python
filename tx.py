@@ -58,11 +58,7 @@ class TX:
         msg_value = self.value.to_bytes(self.intlength(self.value), byteorder='big')
         msg_guarantee = self.guarantee.to_bytes(self.intlength(self.guarantee), byteorder='big')
 
-        print(to_string(msg_value))
-        print(to_string(msg_guarantee))
         msg = msg_parents + msg_nonce + msg_from + msg_to + msg_value + msg_guarantee
-
-        print(to_string(msg))
         return msg
 
     def sign(self, priv):
